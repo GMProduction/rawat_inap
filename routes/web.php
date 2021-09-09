@@ -45,7 +45,7 @@ Route::get('/tentang-kami', function () {
 Route::post('/login', [AuthController::class,'login']);
 Route::get('/logout', [AuthController::class,'logout']);
 Route::post('/register-member', [AuthController::class, 'registerMember']);
-
+Route::get('/cetaklaporan',[LaporanController::class, 'cetakLaporan']);
 
 Route::post('/login', [AuthController::class,'login']);
 
@@ -56,6 +56,11 @@ Route::get('/admin', function () {
 Route::get('/admin/dokter', function () {
     return view('admin/dokter');
 });
+
+Route::get('/admin/pasien', function () {
+    return view('admin/pasien');
+});
+
 
 Route::get('/admin/obat', function () {
     return view('admin/obat');
@@ -75,6 +80,10 @@ Route::get('/admin/kamar', function () {
 
 Route::get('/admin/rawatinap', function () {
     return view('admin/rawatinap');
+});
+
+Route::get('/admin/rawatinapdetail', function () {
+    return view('admin/rawatinapdetail');
 });
 
 Route::get('/admin/laporan', function () {

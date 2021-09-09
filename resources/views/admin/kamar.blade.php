@@ -10,7 +10,7 @@
         <div class="table-container">
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5>Data Dokter</h5>
+                <h5>Data kamar</h5>
                 <button type="button ms-auto" class="btn btn-primary btn-sm" id="addData">Tambah Data
                 </button>
             </div>
@@ -19,18 +19,14 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nama</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Spesialis</th>
-                        <th>Tarif Per Kunjungan</th>
+                        <th>Nama kamar</th>
+                        <th>Tarif Per Hari</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
 
                 <td>1</td>
-                <td>Joko</td>
-                <td>Laki-laki</td>
-                <td>Kulit</td>
+                <td>Mawar 1</td>
                 <td>20000</td>
                 <td width="170">
                     <a class="btn btn-sm btn-primary" id="editData">Ubah</a>
@@ -61,7 +57,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Dokter</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data kamar</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -69,33 +65,13 @@
                             @csrf
                             <input id="id" name="id" type="number" hidden>
                             <div class="mb-3">
-                                <label for="namadokter" class="form-label">Nama Dokter</label>
-                                <input type="text" class="form-control" id="namadokter" name="namadokter">
+                                <label for="namakamar" class="form-label">Nama kamar</label>
+                                <input type="text" class="form-control" id="namakamar" name="namakamar">
                             </div>
 
-
-                            <label>Jenis Kelamin</label>
-                            <div class="form-check">
-                                <input style="padding: 0" class="form-check-input" type="radio" name="jeniskelamin" id="laki" value="1" checked>
-                                <label class="form-check-label" for="laki">
-                                    Laki-laki
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input style="padding: 0"  class="form-check-input" type="radio" name="jeniskelamin" id="perempuan" value="2">
-                                <label class="form-check-label" for="perempuan">
-                                    Perempuan
-                                </label>
-                            </div>
-
-
-                            <div class="mb-3 mt-3">
-                                <label for="spesialis" class="form-label">Spesialis</label>
-                                <input type="text" class="form-control" id="spesialis" name="spesialis">
-                            </div>
 
                             <div class="mb-3">
-                                <label for="tarif" class="form-label">Tarif Perkunjungan</label>
+                                <label for="tarif" class="form-label">Tarif Per Hari</label>
                                 <input type="text" class="form-control" id="tarif" name="tarif">
                             </div>
 
