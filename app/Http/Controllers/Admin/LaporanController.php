@@ -22,16 +22,16 @@ class LaporanController extends Controller
         return view('admin.laporan')->with($data);
     }
 
-    public function cetakLaporan()
+    public function cetakPersetujuan()
     {
 //        return $this->dataLaporan();
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($this->dataLaporan())->setPaper('f4', 'landscape');
+        $pdf->loadHTML($this->dataPersetujuan())->setPaper('f4', 'potrait');
 
         return $pdf->stream();
     }
 
-    public function dataLaporan()
+    public function dataPersetujuan()
     {
         $start   = \request('start');
         $end     = \request('end');
