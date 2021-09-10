@@ -45,7 +45,7 @@ Route::get('/tentang-kami', function () {
 Route::post('/login', [AuthController::class,'login']);
 Route::get('/logout', [AuthController::class,'logout']);
 Route::post('/register-member', [AuthController::class, 'registerMember']);
-Route::get('/cetaklaporan',[LaporanController::class, 'cetakLaporan']);
+Route::get('/admin/cetakpersetujuan',[LaporanController::class, 'cetakpersetujuan']);
 
 Route::post('/login', [AuthController::class,'login']);
 

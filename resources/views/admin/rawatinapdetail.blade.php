@@ -33,7 +33,7 @@
                     </div>
 
                     <hr>
-                    <a class="btn btn-warning"> Cetak Persetujuan</a>
+                    <a class="btn btn-warning" href="/admin/cetakpersetujuan"> Cetak Persetujuan</a>
                     <a class="btn btn-primary"> Checkout</a>
                 </div>
             </div>
