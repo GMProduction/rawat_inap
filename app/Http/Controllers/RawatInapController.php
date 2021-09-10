@@ -98,4 +98,14 @@ class RawatInapController extends Controller
         }
         return response()->json(['msg' => 'berhasil']);
     }
+
+    public function deleteRawatInap($id){
+        RawatInap::destroy($id);
+        return response()->json(['msg' => 'berhasil']);
+    }
+
+    public function deletePerawatan($id){
+        Perawatan::destroy($id);
+        return response()->json(['msg' => 'berhasil']);
+    }
 }

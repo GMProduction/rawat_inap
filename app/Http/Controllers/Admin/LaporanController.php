@@ -13,7 +13,7 @@ class LaporanController extends Controller
 
     public function index()
     {
-      
+
         $data    = [
             'data'  => "",
             'total' => "",
@@ -24,7 +24,7 @@ class LaporanController extends Controller
 
     public function cetakPersetujuan()
     {
-//        return $this->dataLaporan();
+        return $this->dataPersetujuan();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->dataPersetujuan())->setPaper('f4', 'potrait');
 

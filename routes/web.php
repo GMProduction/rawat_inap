@@ -82,8 +82,9 @@ Route::prefix('/admin')->group(function (){
     Route::get('/kamar/{id}/delete', [KamarController::class, 'delete']);
 
     Route::match(['post','get'],'/rawatinap', [RawatInapController::class,'index']);
-    Route::get('/rawatinap/{id}/delete', [RawatInapController::class, 'delete']);
+    Route::get('/rawatinap/{id}/delete', [RawatInapController::class, 'deleteRawatInap']);
     Route::match(['post','get'],'/rawatinap/{id}', [RawatInapController::class,'detail']);
+    Route::get('/rawatinap/{id}/deleteperawatan', [RawatInapController::class, 'deletePerawatan']);
 
 
     Route::get('/laporan', function () {

@@ -79,7 +79,7 @@
                                        data-suhu="{{$d->suhu_badan}}" data-tensi="{{$d->tensi_darah}}" data-tindakan="{{$d->tindakan ? $d->tindakan->id : ''}}"
                                        data-obat="{{$d->obat ? $d->obat->id : ''}}" data-tanggal="{{$d->tanggal}}" data-perawat="{{$d->perawat ? $d->perawat->id : ''}}"
                                        data-dokter="{{$d->dokter ? $d->dokter->id : ''}}" data-image="{{$d->url_foto}}">Edit</a>
-                                    <a class="btn btn-sm btn-danger" id="deleteData">Hapus</a>
+                                    <a class="btn btn-sm btn-danger" id="deleteData" onclick="hapus('{{$d->id}}','')">Hapus</a>
                                 </td>
                             </tr>
                         @empty
@@ -109,7 +109,7 @@
                             <input id="id" name="id" type="number" hidden>
 
                             <label class="mt-3">Dokter</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="dokter" name="id_dokter" onchange="getHarga(this)">
+                            <select class=" me-2 w-100 form-control" aria-label="select" id="dokter" name="id_dokter">
                                 <option value="" data-harga="0" data-type="hdokter">Tanpa Dokter</option>
                                 @foreach($dokter as $d)
                                     <option value="{{$d->id}}" data-type="hdokter" data-harga="{{$d->tarif}}">{{$d->nama}}</option>
@@ -131,7 +131,7 @@
                             </div>
 
                             <label class="mt-3">Obat</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="obat" name="id_obat" onchange="getHarga(this)">
+                            <select class=" me-2 w-100 form-control" aria-label="select" id="obat" name="id_obat">
                                 <option value="" data-harga="0" data-type="hobat">Tanpa Obat</option>
                                 @foreach($obat as $d)
                                     <option value="{{$d->id}}" data-type="hobat" data-harga="{{$d->harga}}">{{$d->nama_obat}}</option>
@@ -139,7 +139,7 @@
                             </select>
 
                             <label class="mt-3">tindakan</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="tindakan" name="id_tindakan" onchange="getHarga(this)">
+                            <select class=" me-2 w-100 form-control" aria-label="select" id="tindakan" name="id_tindakan">
                                 <option value="" data-harga="0" data-type="htindakan">Tanpa Tindakan</option>
                                 @foreach($tindakan as $d)
                                     <option value="{{$d->id}}" data-type="htindakan" data-harga="{{$d->harga}}">{{$d->nama_tindakan}}</option>
@@ -234,7 +234,7 @@
         }
 
         function hapus(a, b) {
-            deleteData(b, window.location.pathname + '/' + a + '/delete')
+            deleteData(b, '/admin/rawatinap/' + a + '/deleteperawatan')
             return false;
         }
 
