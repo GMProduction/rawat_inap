@@ -21,33 +21,24 @@
                         <th>#</th>
                         <th>Nama</th>
                         <th>Jenis Kelamin</th>
-                       
                         <th>Aksi</th>
                     </tr>
                 </thead>
-
-                <td>1</td>
-                <td>Joko</td>
-                <td>Laki-laki</td>
-               
-                <td width="170">
-                    <a class="btn btn-sm btn-primary" id="editData">Ubah</a>
-                    <a class="btn btn-sm btn-danger" id="editData">Hapus</a>
-                </td>
-                {{-- @forelse($data as $key => $d)
+                 @forelse($data as $key => $d)
                     <tr>
                         <td width="20">{{$key+1}}</td>
-                        <td width="100"><img src="{{$d->url_foto}}" height="75"></td>
-                        <td>{{$d->nama_kategori}}</td>
-                        <td width="50">
-                            <a class="btn btn-sm btn-primary" id="editData" data-id="{{$d->id}}" data-nama="{{$d->nama_kategori}}" data-image="{{$d->url_foto}}">Edit</a>
+                        <td>{{$d->nama}}</td>
+                        <td>{{$d->jenis_kelamin}}</td>
+                        <td width="150">
+                            <a class="btn btn-sm btn-primary" id="editData" data-id="{{$d->id}}" data-nama="{{$d->nama}}" data-gender="{{$d->jenis_kelamin}}">Edit</a>
+                            <a class="btn btn-sm btn-danger" id="deleteData" onclick="hapus('{{$d->id}}','{{$d->nama}}')">Hapus</a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="8">Tidak ada kategori</td>
+                        <td class="text-center" colspan="4">Tidak ada perawat</td>
                     </tr>
-                @endforelse --}}
+                @endforelse
 
             </table>
             {{-- <div class="d-flex justify-content-end">
@@ -63,26 +54,26 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="formKategori" onsubmit="return saveKategori()">
+                        <form id="form" onsubmit="return save()">
                             @csrf
                             <input id="id" name="id" type="number" hidden>
                             <div class="mb-3">
-                                <label for="namaperawat" class="form-label">Nama Perawat</label>
-                                <input type="text" class="form-control" id="namaperawat" name="namaperawat">
+                                <label for="nama" class="form-label">Nama Perawat</label>
+                                <input type="text" class="form-control" id="nama" name="nama" required>
                             </div>
 
 
                             <label>Jenis Kelamin</label>
                             <div class="form-check">
-                                <input style="padding: 0" class="form-check-input" type="radio" name="jeniskelamin" id="laki" value="1" checked>
-                                <label class="form-check-label" for="laki">
-                                    Laki-laki
+                                <input style="padding: 0" class="form-check-input" type="radio" name="jenis_kelamin" id="Pria" value="Pria" checked>
+                                <label class="form-check-label" for="Pria">
+                                    Pria
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input style="padding: 0"  class="form-check-input" type="radio" name="jeniskelamin" id="perempuan" value="2">
-                                <label class="form-check-label" for="perempuan">
-                                    Perempuan
+                                <input style="padding: 0"  class="form-check-input" type="radio" name="jenis_kelamin" id="Wanita" value="Wanita">
+                                <label class="form-check-label" for="Wanita">
+                                    Wanita
                                 </label>
                             </div>
 
@@ -101,27 +92,31 @@
 
 @section('script')
     <script>
-        $(document).on('click', '#addData', function() {
-            $('#tambahkategori #id').val('')
-            $('#tambahkategori #nama_kategori').val('')
-            $('#tambahkategori #url_foto').val('')
-            $('#tambahkategori #imgKate').attr('src', '')
 
-            $('#tambahkategori').modal('show')
-        })
-
-        $(document).on('click', '#editData', function() {
+        $(document).on('click', '#editData, #addData', function() {
             $('#tambahkategori #id').val($(this).data('id'))
-            $('#tambahkategori #nama_kategori').val($(this).data('nama'))
-            $('#tambahkategori #url_foto').val('')
-            $('#tambahkategori #imgKate').attr('src', $(this).data('image'))
+            $('#tambahkategori #nama').val($(this).data('nama'))
+            $('#tambahkategori #Pria').prop('checked',true)
+            if ($(this).data('id')){
+                $('#tambahkategori #'+$(this).data('gender')).prop('checked',true)
+            }
             $('#tambahkategori').modal('show')
         })
 
-        function saveKategori() {
-            saveData('Tambah kategori', 'formKategori', '/admin/produk/kategori');
+        function save() {
+            var title = 'Tambah';
+            if ( $('#tambahkategori #id').val()){
+                title = 'Edit'
+            }
+            saveData(title+' data perawat', 'form');
             return false;
         }
+
+        function hapus(a,b) {
+            deleteData(b,window.location.pathname+'/'+a+'/delete')
+            return false;
+        }
+
     </script>
 
 @endsection

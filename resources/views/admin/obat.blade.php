@@ -25,29 +25,22 @@
                         <th>Aksi</th>
                     </tr>
                 </thead>
-
-                <td>1</td>
-                <td>Panadol</td>
-                <td>Obat Nyamuk</td>
-                <td>20000</td>
-                <td width="170">
-                    <a class="btn btn-sm btn-primary" id="editData">Ubah</a>
-                    <a class="btn btn-sm btn-danger" id="editData">Hapus</a>
-                </td>
-                {{-- @forelse($data as $key => $d)
+                 @forelse($data as $key => $d)
                     <tr>
                         <td width="20">{{$key+1}}</td>
-                        <td width="100"><img src="{{$d->url_foto}}" height="75"></td>
-                        <td>{{$d->nama_kategori}}</td>
-                        <td width="50">
-                            <a class="btn btn-sm btn-primary" id="editData" data-id="{{$d->id}}" data-nama="{{$d->nama_kategori}}" data-image="{{$d->url_foto}}">Edit</a>
+                        <td>{{$d->nama_obat}}</td>
+                        <td>{{$d->jenis_obat}}</td>
+                        <td>Rp. {{number_format($d->harga, 0)}}</td>
+                        <td width="150">
+                            <a class="btn btn-sm btn-primary" id="editData" data-id="{{$d->id}}" data-nama="{{$d->nama_obat}}" data-harga="{{$d->harga}}" data-jenis="{{$d->jenis_obat}}">Edit</a>
+                            <a class="btn btn-sm btn-danger" id="deleteData" onclick="hapus('{{$d->id}}','{{$d->nama_obat}}')">Hapus</a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td class="text-center" colspan="8">Tidak ada kategori</td>
+                        <td class="text-center" colspan="5">Tidak ada obat</td>
                     </tr>
-                @endforelse --}}
+                @endforelse
 
             </table>
             {{-- <div class="d-flex justify-content-end">
@@ -63,23 +56,21 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="formKategori" onsubmit="return saveKategori()">
+                        <form id="form" onsubmit="return save()">
                             @csrf
                             <input id="id" name="id" type="number" hidden>
                             <div class="mb-3">
-                                <label for="namaobat" class="form-label">Nama Obat</label>
-                                <input type="text" class="form-control" id="namaobat" name="namaobat">
+                                <label for="nama" class="form-label">Nama Obat</label>
+                                <input type="text" class="form-control" id="nama" name="nama_obat" required>
                             </div>
-
-
                             <div class="mb-3 mt-3">
-                                <label for="jenisobat" class="form-label">Jenis Obat</label>
-                                <input type="text" class="form-control" id="jenisobat" name="jenisobat">
+                                <label for="jenis_obat" class="form-label">Jenis Obat</label>
+                                <input type="text" class="form-control" id="jenis_obat" name="jenis_obat" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="harga" class="form-label">harga</label>
-                                <input type="text" class="form-control" id="tarif" name="harga">
+                                <input type="text" class="form-control" id="harga" name="harga" required>
                             </div>
 
                             <div class="mb-4"></div>
@@ -97,6 +88,9 @@
 
 @section('script')
     <script>
+        $(document).ready(function () {
+            currency('harga')
+        })
         $(document).on('click', '#addData', function() {
             $('#tambahkategori #id').val('')
             $('#tambahkategori #nama_kategori').val('')
@@ -106,16 +100,28 @@
             $('#tambahkategori').modal('show')
         })
 
-        $(document).on('click', '#editData', function() {
+        $(document).on('click', '#editData, #addData', function() {
             $('#tambahkategori #id').val($(this).data('id'))
-            $('#tambahkategori #nama_kategori').val($(this).data('nama'))
-            $('#tambahkategori #url_foto').val('')
-            $('#tambahkategori #imgKate').attr('src', $(this).data('image'))
+            $('#tambahkategori #jenis_obat').val($(this).data('jenis'))
+            $('#tambahkategori #nama').val($(this).data('nama'))
+            var tarif = $(this).data('harga');
+            if ($(this).data('id')){
+                tarif = tarif.toLocaleString();
+            }
+            $('#tambahkategori #harga').val(tarif)
             $('#tambahkategori').modal('show')
         })
 
-        function saveKategori() {
-            saveData('Tambah kategori', 'formKategori', '/admin/produk/kategori');
+        function save() {
+            var title = 'Tambah';
+            if ( $('#tambahkategori #id').val()){
+                title = 'Edit'
+            }
+            saveData(title+' data obat', 'form');
+            return false;
+        }
+        function hapus(a,b) {
+            deleteData(b,window.location.pathname+'/'+a+'/delete')
             return false;
         }
     </script>

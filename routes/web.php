@@ -10,8 +10,15 @@ use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DokterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KamarController;
+use App\Http\Controllers\ObatController;
+use App\Http\Controllers\PasienController;
+use App\Http\Controllers\PerawatController;
 use App\Http\Controllers\RajaOngkirController;
+use App\Http\Controllers\RawatInapController;
+use App\Http\Controllers\TindakanController;
 use App\Http\Controllers\User\DikemasController;
 use App\Http\Controllers\User\KeranjangController;
 use App\Http\Controllers\User\MenungguController;
@@ -49,46 +56,41 @@ Route::get('/cetaklaporan',[LaporanController::class, 'cetakLaporan']);
 
 Route::post('/login', [AuthController::class,'login']);
 
-Route::get('/admin', function () {
-    return view('admin/dashboard');
+
+Route::prefix('/admin')->group(function (){
+
+    Route::get('/', function () {
+        return view('admin/dashboard');
+    });
+
+    Route::match(['post','get'],'/dokter', [DokterController::class,'index']);
+    Route::get('/dokter/{id}/delete', [DokterController::class, 'delete']);
+
+    Route::match(['post','get'],'/pasien', [PasienController::class, 'index']);
+    Route::get('/pasien/{id}/delete', [PasienController::class, 'delete']);
+
+    Route::match(['post','get'],'/obat', [ObatController::class,'index']);
+    Route::get('/obat/{id}/delete', [ObatController::class, 'delete']);
+
+    Route::match(['post','get'],'/perawat', [PerawatController::class,'index']);
+    Route::get('/perawat/{id}/delete', [PerawatController::class, 'delete']);
+
+    Route::match(['post','get'],'/tindakan', [TindakanController::class,'index']);
+    Route::get('/tindakan/{id}/delete', [TindakanController::class, 'delete']);
+
+    Route::match(['post','get'],'/kamar', [KamarController::class,'index']);
+    Route::get('/kamar/{id}/delete', [KamarController::class, 'delete']);
+
+    Route::match(['post','get'],'/rawatinap', [RawatInapController::class,'index']);
+    Route::get('/rawatinap/{id}/delete', [RawatInapController::class, 'delete']);
+    Route::match(['post','get'],'/rawatinap/{id}', [RawatInapController::class,'detail']);
+
+
+    Route::get('/laporan', function () {
+        return view('admin/laporan');
+    });
 });
 
-Route::get('/admin/dokter', function () {
-    return view('admin/dokter');
-});
-
-Route::get('/admin/pasien', function () {
-    return view('admin/pasien');
-});
-
-
-Route::get('/admin/obat', function () {
-    return view('admin/obat');
-});
-
-Route::get('/admin/perawat', function () {
-    return view('admin/perawat');
-});
-
-Route::get('/admin/tindakan', function () {
-    return view('admin/tindakan');
-});
-
-Route::get('/admin/kamar', function () {
-    return view('admin/kamar');
-});
-
-Route::get('/admin/rawatinap', function () {
-    return view('admin/rawatinap');
-});
-
-Route::get('/admin/rawatinapdetail', function () {
-    return view('admin/rawatinapdetail');
-});
-
-Route::get('/admin/laporan', function () {
-    return view('admin/laporan');
-});
 // Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function (){
 //     Route::get('/', [DashboardController::class, 'index']);
 

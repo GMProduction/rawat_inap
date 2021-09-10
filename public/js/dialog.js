@@ -26,9 +26,11 @@ function saveData(title, form, url, resposeSuccess) {
                         if (xhr.status === 200) {
                             swal("Berhasil", {
                                 icon: "success",
+                                buttons: false,
+                                timer: 1000
                             }).then((dat) => {
                                 if (resposeSuccess) {
-                                    resposeSuccess()
+                                    resposeSuccess(data)
                                 } else {
                                     window.location.reload()
                                 }
@@ -38,17 +40,42 @@ function saveData(title, form, url, resposeSuccess) {
                         }
                         console.log(data);
                     },
+                    xhr: function() {
+                        $('#progressbar').remove();
+                        $('#'+form).append(' <div id="progressbar" class="progress mt-2">\n' +
+                            '                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>\n' +
+                            '                            </div>')
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener("progress", function(evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = (evt.loaded / evt.total) * 100;
+                                //Do something with upload progress here
+                                // console.log(percentComplete)
+                                $('#progressbar div').attr('style',"width:"+percentComplete+'%').html(parseInt(percentComplete)+'%')
+                                if (percentComplete === 100){
+                                    $('#progressbar div').addClass('bg-success')
+                                }
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    // uploadProgress: function(event, position, total, percentComplete){
+                    //     var percentVal = percentComplete + '%';
+                    //     console.log(percentVal);
+                    //     console.log(percentVal);
+                    //
+                    // },
                     complete: function (xhr, textStatus) {
-                        console.log(xhr.status);
-                        console.log(textStatus);
+                        $('#progressbar').remove();
                     },
                     error: function (error, xhr, textStatus) {
                         // console.log("LOG ERROR", error.responseJSON.errors);
                         // console.log("LOG ERROR", error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0]);
+                        $('#progressbar div').removeClass('bg-success').addClass('bg-danger');
                         console.log(xhr.status);
                         console.log(textStatus);
                         console.log(error.responseJSON);
-                        swal(error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0])
+                        swal(error.responseJSON.errors ? error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0] : error.responseJSON['message'] ? error.responseJSON['message'] : error.responseJSON['msg'] )
                     }
                 })
             }
@@ -81,9 +108,11 @@ function saveDataObject(title, form_data, url, resposeSuccess) {
                         if (xhr.status === 200) {
                             swal("Data Updated ", {
                                 icon: "success",
+                                buttons: false,
+                                timer: 1000
                             }).then((dat) => {
                                 if (resposeSuccess) {
-                                    resposeSuccess()
+                                    resposeSuccess(data)
                                 } else {
                                     window.location.reload()
                                 }
@@ -103,7 +132,7 @@ function saveDataObject(title, form_data, url, resposeSuccess) {
                         console.log(xhr.status);
                         console.log(textStatus);
                         console.log(error.responseJSON);
-                        swal(error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0])
+                        swal(error.responseJSON['message'] ? error.responseJSON['message'] : error.responseJSON.errors ? error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0] : error.responseJSON['msg'] )
                     }
                 })
             }
@@ -141,9 +170,11 @@ function deleteData(text, url, resposeSuccess) {
                         if (xhr.status === 200) {
                             swal("Data Deleted ", {
                                 icon: "success",
+                                buttons: false,
+                                timer: 1000
                             }).then((dat) => {
                                 if (resposeSuccess) {
-                                    resposeSuccess()
+                                    resposeSuccess(data)
                                 } else {
                                     window.location.reload()
                                 }
@@ -163,7 +194,7 @@ function deleteData(text, url, resposeSuccess) {
                         console.log(xhr.status);
                         console.log(textStatus);
                         console.log(error.responseJSON);
-                        swal(error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0])
+                        swal(error.responseJSON['message'] ? error.responseJSON['message'] : error.responseJSON.errors ? error.responseJSON.errors[Object.keys(error.responseJSON.errors)[0]][0] : error.responseJSON['msg'] )
                     }
                 })
             }
@@ -184,4 +215,15 @@ function getSelect(id, url, nameValue, idValue) {
             }
         })
     })
+}
+
+function currency(field) {
+    $('#' + field).on({
+        keyup: function () {
+            formatCurrency($(this));
+        },
+        blur: function () {
+            formatCurrency($(this), "blur");
+        }
+    });
 }

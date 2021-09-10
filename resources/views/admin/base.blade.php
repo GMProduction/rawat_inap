@@ -38,7 +38,7 @@
 <div class="side-navbar active-nav d-flex justify-content-between  flex-wrap flex-column" id="sidebar">
     <ul class="nav flex-column text-white w-100 h-100">
         <a href="#" class="nav-link h5 text-white my-2">
-            Hi, 
+            Hi,
             {{-- {{auth()->user()->nama}} --}}
         </a>
 
@@ -50,48 +50,48 @@
             </li>
         </a>
 
-        <a href="/admin/dokter" id="kategori">
+        <a href="/admin/dokter" id="dokter">
             <li href="#" class="nav-link t-white">
                 <i class='bx bx-first-aid' ></i>
                 <span class="mx-2">Master Dokter</span>
             </li>
         </a>
-        <a href="/admin/perawat" id="produk">
+        <a href="/admin/perawat" id="perawat">
             <li href="#" class="nav-link t-white">
                 <i class='bx bx-user-circle' ></i>
                 <span class="mx-2">Master Perawat</span>
             </li>
         </a>
-        <a href="/admin/obat" id="bank">
+        <a href="/admin/obat" id="obat">
             <li href="#" class="nav-link t-white">
                 <i class='bx bxs-capsule' ></i>
                 <span class="mx-2">Master Obat</span>
             </li>
         </a>
 
-        <a href="/admin/tindakan" id="baner">
+        <a href="/admin/tindakan" id="tindakan">
             <li href="#" class="nav-link t-white">
                 <i class='bx bx-donate-heart' ></i>
                 <span class="mx-2">Master Tindakan</span>
             </li>
         </a>
 
-        <a href="/admin/kamar" id="baner">
+        <a href="/admin/kamar" id="kamar">
             <li href="#" class="nav-link t-white">
                 <i class='bx bx-clinic'></i>
                 <span class="mx-2">Master Kamar</span>
             </li>
         </a>
 
-        <a href="/admin/pasien" id="baner">
+        <a href="/admin/pasien" id="pasien">
             <li href="#" class="nav-link t-white">
                 <i class='bx bx-group' ></i>
                 <span class="mx-2">Master Pasien</span>
             </li>
         </a>
 
-      
-        <a href="/admin/rawatinap" id="pelanggan">
+
+        <a href="/admin/rawatinap" id="rawatinap">
             <li href="#" class="nav-link t-white">
                 <i class='bx bx-hotel'></i>
                 <span class="mx-2">Rawat Inap</span>
@@ -100,7 +100,7 @@
         </a>
 
 
-    
+
         <a href="/admin/laporan" id="laporan">
             <li href="#" class="nav-link t-white">
                 <i class="bx bxs-file"></i>
@@ -144,6 +144,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="{{ asset('js/dialog.js') }}"></script>
 <script src="{{ asset('js/moment.js') }}"></script>
+<script src="{{ asset('js/currency.js') }}"></script>
 @yield('script')
 </body>
 
