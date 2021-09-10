@@ -149,12 +149,12 @@
 
                             <div class="mb-3 mt-3">
                                 <label for="tensi" class="form-label">Tensi Darah</label>
-                                <input type="text" class="form-control" id="tensi" name="tensi_darah">
+                                <input type="text" class="form-control" id="tensi" name="tensi_darah" required>
                             </div>
 
                             <div class="mb-3 mt-3">
                                 <label for="suhu" class="form-label">Suhu Badan</label>
-                                <input type="text" class="form-control" id="suhu" name="suhu_badan">
+                                <input type="text" class="form-control" id="suhu" name="suhu_badan" required>
                             </div>
                             <hr>
                             <div class="mb-3 mt-3">
@@ -187,7 +187,7 @@
             $('#tambahkategori #tindakan').val($(this).data('tindakan'))
             $('#tambahkategori #tensi').val($(this).data('tensi'))
             $('#tambahkategori #suhu').val($(this).data('suhu'))
-            var harga = $(this).data('harga');
+            var harga = $(this).data('harga') ?? 0;
             $('#tambahkategori #biaya').val(harga)
             hobat = 0
             hdokter = 0
