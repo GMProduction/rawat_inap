@@ -115,20 +115,20 @@
         <table style="border: none">
             <tr>
                 <td>
-                    <img src="{{ public_path('static-image/logo.png') }}" style="width: 120px;" />
+                    <img src="{{ public_path('static-image/logo.png') }}" style="width: 80px;" />
 
                 </td>
 
                 <td>
                     <div>
-                        <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem">KLINIK .........</h4>
-                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem">Kota Surakarta</h5>
+                        <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">KLINIK .........</h4>
+                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">Kota Surakarta</h5>
 
                     </div>
                 </td>
 
                 <td>
-                    <img src="{{ public_path('static-image/logo.png') }}" style="width: 120px;" />
+                    <img src="{{ public_path('static-image/logo.png') }}" style="width: 80px;" />
 
                 </td>
 
@@ -136,33 +136,33 @@
         </table>
         <hr>
 
-        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem; margin-top: 70px; margin-bottom: 40px">SURAT PERSETUJUAN RAWAT INAP</h5>
-        
+        <h5 style=" text-align: center; font-size: 1.4rem; margin-top: 20px; margin-bottom: 10px">SURAT PERSETUJUAN RAWAT INAP</h5>
+
         <p>I. IDENTITAS PASIEN</p>
-        <table style="border: none; width: 250px; table-layout:fixed; ">
+        <table style="border: none;  table-layout:fixed; ">
             <tr style="width: 50px">
-                <td style="text-align: left; width: 50px">Nama</td>
-                <td style="text-align: left; width: 50px">:</td>
-                <td style="text-align: left; width: 50px">Joko</td>
+                <td style="text-align: left; width: 18%">Nama</td>
+                <td style="text-align: left; width: 1%">:</td>
+                <td style="text-align: left;" >{{$pasien->pasien->nama}}</td>
             </tr>
             <tr style="width: 5px">
                 <td style="text-align: left; width: 1px" >No. RM</td>
                 <td style="text-align: left; width: 1px">:</td>
-                <td style="text-align: left; width: 1px">13215464</td>
+                <td style="text-align: left; width: 1px">{{$pasien->pasien->no_rm}}</td>
             </tr>
             <tr style="text-align: left">
                 <td style="text-align: left">Alamat</td>
                 <td style="text-align: left">:</td>
-                <td style="text-align: left">Solo</td>
+                <td style="text-align: left">{{$pasien->pasien->alamat}}</td>
             </tr>
         </table>
 
         <p>II. KELUARGA / PENANGGUNG JAWAB</p>
-        <table style="border: none; width: 250px; table-layout:fixed; ">
+        <table style="border: none; table-layout:fixed; ">
             <tr style="width: 30px">
-                <td style="text-align: left; width: 30px">Nama</td>
-                <td style="text-align: left; width: 30px">:</td>
-                <td style="text-align: left; width: 30px">Joko</td>
+                <td style="text-align: left; width: 35%">Nama</td>
+                <td style="text-align: left; width: 1%">:</td>
+                <td style="text-align: left; width: 30px">{{$pasien->penanggung_jawab}}</td>
             </tr>
             {{-- <tr style="width: 5px">
                 <td style="text-align: left; width: 1px" >No. Hp</td>
@@ -170,9 +170,9 @@
                 <td style="text-align: left; width: 1px">13215464</td>
             </tr> --}}
             <tr style="text-align: left">
-                <td style="text-align: left">Alamat</td>
+                <td style="text-align: left">Hubungan dengan pasien</td>
                 <td style="text-align: left">:</td>
-                <td style="text-align: left">Solo</td>
+                <td style="text-align: left">{{$pasien->hubungan_penanggung_jawab}}</td>
             </tr>
         </table>
 
@@ -187,6 +187,7 @@
             <p class="text-center">( ........................... )</p>
             {{-- <p class="text-center">( {{ auth()->user()->username }} )</p> --}}
         </div>
+
 
 
         <footer class="footer">

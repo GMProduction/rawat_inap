@@ -38,7 +38,7 @@
                         <td>{{ $d->pasien->nama }}</td>
                         <td>{{ \Carbon\Carbon::parse($d->tanggal_masuk)->isoFormat('LL, HH:mm') }}</td>
                         <td>{{ $d->kamar->nama_kamar }}</td>
-                        <td></td>
+                        <td>{{$d->tanggal_keluar ? 'Selesai' : 'Rawat Inap'}}</td>
                         <td>{{ $d->diagnosa_awal }}</td>
                         <td width="50">
                             <a class="btn btn-sm btn-warning" id="detailData" data-id="{{ $d->id }}"
@@ -78,7 +78,7 @@
                             <input id="id" name="id" type="number" hidden>
 
                             <label class="mt-3">Nama Pasien</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="id_pasien" name="id_pasien">
+                            <select class=" me-2 w-100 form-select" aria-label="select" id="id_pasien" name="id_pasien">
                                 <option value="" selected disabled>Pilih Pasien</option>
                                 @foreach ($pasien as $p)
                                     <option value="{{ $p->id }}">{{ $p->nama }}</option>
@@ -86,7 +86,7 @@
                             </select>
 
                             <label class="mt-3">Kamar</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="id_kamar" name="id_kamar">
+                            <select class=" me-2 w-100 form-select" aria-label="select" id="id_kamar" name="id_kamar">
                                 <option value="" selected disabled>Pilih Kamar</option>
                                 @foreach ($kamar as $p)
                                     <option value="{{ $p->id }}">{{ $p->nama_kamar }}</option>
@@ -116,7 +116,7 @@
                             </div>
 
                             <label class="mt-3">Penerimaan</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="penerimaan" name="penerimaan">
+                            <select class=" me-2 w-100 form-select" aria-label="select" id="penerimaan" name="penerimaan">
                                 <option value="igd">IGD</option>
                                 <option value="langsung">Langsung</option>
                                 <option value="rujukan">Rujukan</option>
@@ -130,7 +130,7 @@
             </div>
         </div>
 
-        
+
 
     </section>
 

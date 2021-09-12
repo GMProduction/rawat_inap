@@ -41,59 +41,67 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::get(
+    '/',
+    function () {
+        return view('login');
+    }
+)->name('login');
+Route::post('/', [AuthController::class, 'login']);
 
-Route::get('/tentang-kami', function () {
-    return view('tentang');
-});
+Route::get(
+    '/tentang-kami',
+    function () {
+        return view('tentang');
+    }
+);
 
-Route::post('/login', [AuthController::class,'login']);
-Route::get('/logout', [AuthController::class,'logout']);
+Route::get('/logout', [AuthController::class, 'logout']);
 Route::post('/register-member', [AuthController::class, 'registerMember']);
-Route::get('/admin/cetakpersetujuan',[LaporanController::class, 'cetakpersetujuan']);
-Route::get('/admin/cetakpembayaran',[LaporanController::class, 'cetakpembayaran']);
-Route::get('/admin/cetakpembayarandetail',[LaporanController::class, 'cetakpembayarand']);
-Route::get('/admin/cetaklaporan',[LaporanController::class, 'cetaklaporan']);
 
-Route::post('/login', [AuthController::class,'login']);
+Route::post('/login', [AuthController::class, 'login']);
 
+Route::prefix('/admin')->middleware('auth')->group(
+    function () {
 
-Route::prefix('/admin')->group(function (){
+        Route::get(
+            '/',
+            function () {
+                return view('admin/dashboard');
+            }
+        );
 
-    Route::get('/', function () {
-        return view('admin/dashboard');
-    });
+        Route::match(['post', 'get'], '/dokter', [DokterController::class, 'index']);
+        Route::get('/dokter/{id}/delete', [DokterController::class, 'delete']);
 
-    Route::match(['post','get'],'/dokter', [DokterController::class,'index']);
-    Route::get('/dokter/{id}/delete', [DokterController::class, 'delete']);
+        Route::match(['post', 'get'], '/pasien', [PasienController::class, 'index']);
+        Route::get('/pasien/{id}/delete', [PasienController::class, 'delete']);
 
-    Route::match(['post','get'],'/pasien', [PasienController::class, 'index']);
-    Route::get('/pasien/{id}/delete', [PasienController::class, 'delete']);
+        Route::match(['post', 'get'], '/obat', [ObatController::class, 'index']);
+        Route::get('/obat/{id}/delete', [ObatController::class, 'delete']);
 
-    Route::match(['post','get'],'/obat', [ObatController::class,'index']);
-    Route::get('/obat/{id}/delete', [ObatController::class, 'delete']);
+        Route::match(['post', 'get'], '/perawat', [PerawatController::class, 'index']);
+        Route::get('/perawat/{id}/delete', [PerawatController::class, 'delete']);
 
-    Route::match(['post','get'],'/perawat', [PerawatController::class,'index']);
-    Route::get('/perawat/{id}/delete', [PerawatController::class, 'delete']);
+        Route::match(['post', 'get'], '/tindakan', [TindakanController::class, 'index']);
+        Route::get('/tindakan/{id}/delete', [TindakanController::class, 'delete']);
 
-    Route::match(['post','get'],'/tindakan', [TindakanController::class,'index']);
-    Route::get('/tindakan/{id}/delete', [TindakanController::class, 'delete']);
+        Route::match(['post', 'get'], '/kamar', [KamarController::class, 'index']);
+        Route::get('/kamar/{id}/delete', [KamarController::class, 'delete']);
 
-    Route::match(['post','get'],'/kamar', [KamarController::class,'index']);
-    Route::get('/kamar/{id}/delete', [KamarController::class, 'delete']);
+        Route::match(['post', 'get'], '/rawatinap', [RawatInapController::class, 'index']);
+        Route::get('/rawatinap/{id}/delete', [RawatInapController::class, 'deleteRawatInap']);
+        Route::match(['post', 'get'], '/rawatinap/{id}', [RawatInapController::class, 'detail']);
+        Route::get('/rawatinap/{id}/deleteperawatan', [RawatInapController::class, 'deletePerawatan']);
+        Route::post('/rawatinap/{id}/bayar', [RawatInapController::class, 'bayar']);
 
-    Route::match(['post','get'],'/rawatinap', [RawatInapController::class,'index']);
-    Route::get('/rawatinap/{id}/delete', [RawatInapController::class, 'deleteRawatInap']);
-    Route::match(['post','get'],'/rawatinap/{id}', [RawatInapController::class,'detail']);
-    Route::get('/rawatinap/{id}/deleteperawatan', [RawatInapController::class, 'deletePerawatan']);
-
-
-    Route::get('/laporan', function () {
-        return view('admin/laporan');
-    });
-});
+        Route::get('/laporan', [LaporanController::class, 'index']);
+        Route::get('/cetakpersetujuan/{id}', [LaporanController::class, 'cetakpersetujuan']);
+        Route::get('/cetakpembayaran/{id}', [LaporanController::class, 'cetakpembayaran']);
+        Route::get('/cetakpembayarandetail', [LaporanController::class, 'cetakpembayarand']);
+        Route::get('/cetaklaporan', [LaporanController::class, 'cetaklaporan']);
+    }
+);
 
 // Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function (){
 //     Route::get('/', [DashboardController::class, 'index']);

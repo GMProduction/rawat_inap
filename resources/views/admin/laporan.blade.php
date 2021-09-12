@@ -24,11 +24,11 @@
                         <i class='bx bx-calendar me-2' style="font-size: 1.4rem"></i>
                         <div class="me-2">
                             <div class="input-group input-daterange">
-                                <input type="text" class="form-control me-2" name="start" value="{{ request('start') }}"
-                                    required>
+                                <input type="text" class="form-control me-2" name="start" style="background-color: white" readonly value="{{ request('start') }}"
+                                       required>
                                 <div class="input-group-addon">to</div>
-                                <input type="text" class="form-control ms-2" name="end" value="{{ request('end') }}"
-                                    required>
+                                <input type="text" class="form-control ms-2" name="end"  style="background-color: white" readonly value="{{ request('end') }}"
+                                       required>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mx-2">Cari</button>
@@ -40,18 +40,31 @@
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Nama Pasien</th>
-                        <th class="text-center">No Registrasi</th>
-                        <th class="text-center">Tanggal Masuk</th>
-                        <th class="text-center">Tanggal Keluar</th>
-                        <th class="text-center">Penanggung Jawab</th>
-                        <th class="text-center">Diagnosa</th>
-                        <th class="text-center">Penerimaan</th>
-                    </tr>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Nama Pasien</th>
+                    <th class="text-center">No Registrasi</th>
+                    <th class="text-center">Tanggal Masuk</th>
+                    <th class="text-center">Tanggal Keluar</th>
+                    <th class="text-center">Penanggung Jawab</th>
+                    <th class="text-center">Diagnosa</th>
+                    <th class="text-center">Penerimaan</th>
+                </tr>
                 </thead>
-
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td>{{$key +1}}</td>
+                        <td>{{$d->pasien->nama}}</td>
+                        <td>{{$d->no_reg}}</td>
+                        <td>{{ \Carbon\Carbon::parse($d->tanggal_masuk)->isoFormat('LL, HH:mm')}}</td>
+                        <td>{{ \Carbon\Carbon::parse($d->tanggal_keluar)->isoFormat('LL, HH:mm')}}</td>
+                        <td>{{$d->penanggung_jawab}}</td>
+                        <td>{{$d->diagnosa_awal}}</td>
+                        <td>{{$d->penerimaan}}</td>
+                    </tr>
+                @empty
+                    <td colspan="8" class="text-center">Tidak ada data</td>
+                @endforelse
 
             </table>
 
@@ -63,13 +76,12 @@
 
 @section('script')
     <script>
-        $('.input-daterange input').each(function() {
+        $('.input-daterange input').each(function () {
             $(this).datepicker({
                 format: "dd-mm-yyyy"
             });
         });
-        $(document).on('click', '#cetak', function() {
-            console.log('/cetaklaporan?' + $('#formTanggal').serialize());
+        $(document).on('click', '#cetak', function () {
             $(this).attr('href', '/admin/cetaklaporan?' + $('#formTanggal').serialize());
         })
     </script>

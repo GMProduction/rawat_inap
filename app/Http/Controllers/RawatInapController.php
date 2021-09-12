@@ -39,7 +39,6 @@ class RawatInapController extends Controller
             'pasien' => $pasien->getData(),
             'kamar'  => $kamar->getData(),
         ];
-
         return view('admin.rawatinap')->with($data);
     }
 
@@ -68,13 +67,19 @@ class RawatInapController extends Controller
         $perawat = new PerawatController();
         $obat = new ObatController();
         $tindakan = new TindakanController();
+        $pasien = $this->getData()->where('id', '=', $id)->first();
+        $masuk = date_create($pasien->tanggal_masuk);
+        $sekarang = date_create(now());
+
         $data = [
-            'pasien' => $this->getData()->where('id', '=', $id)->first(),
+            'pasien' => $pasien,
             'data'   => $this->getDataDetail($id),
+            'total_biaya'   => $this->getDataDetail($id)->sum('biaya'),
             'dokter' => $dokter->getData(),
             'perawat' => $perawat->getData(),
             'obat' => $obat->getData(),
             'tindakan' => $tindakan->getData(),
+            'hari' => (int) date_diff($masuk,$sekarang)->format("%a") == 0 ? 1 : (int) date_diff($masuk,$sekarang)->format("%a")
         ];
         return view('admin.rawatinapdetail')->with($data);
     }
@@ -107,5 +112,12 @@ class RawatInapController extends Controller
     public function deletePerawatan($id){
         Perawatan::destroy($id);
         return response()->json(['msg' => 'berhasil']);
+    }
+
+    public function bayar($id){
+        $rawat = RawatInap::find($id);
+        $rawat->update(['tanggal_keluar' => now()]);
+        $rawat->pembayaran()->create(\request()->all());
+        return response()->json(['msg'=> 'berhasil']);
     }
 }

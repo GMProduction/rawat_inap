@@ -33,8 +33,14 @@
                     </div>
 
                     <hr>
-                    <a class="btn btn-warning" href="/admin/cetakpersetujuan"> Cetak Persetujuan</a>
-                    <a class="btn btn-primary" id="checkoutp"> Checkout</a>
+                    @if($pasien->pembayaran)
+                        <a type="submit" class="btn btn-success" target="_blank" href="/admin/cetakpembayaran/{{$pasien->id}}">Cetak Tagihan</a>
+                        <a type="submit" class="btn btn-warning" target="_blank" href="/admin/cetakpembayarandetail">Cetak Rincian</a>
+                    @else
+                        <a class="btn btn-warning" href="/admin/cetakpersetujuan/{{$pasien->id}}" target="_blank"> Cetak Persetujuan</a>
+                        <a class="btn btn-primary" id="checkoutp"> Checkout</a>
+                    @endif
+
                 </div>
             </div>
             <div class="col-8">
@@ -42,8 +48,10 @@
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5>Data Perawatan</h5>
-                        <button type="button ms-auto" class="btn btn-primary btn-sm" id="addData">Tambah Data
-                        </button>
+                        @if(!$pasien->pembayaran)
+                            <button type="button ms-auto" class="btn btn-primary btn-sm" id="addData">Tambah Data
+                            </button>
+                        @endif
                     </div>
 
                     <table class="table table-striped table-bordered ">
@@ -58,7 +66,9 @@
                             <th>Obat</th>
                             <th>Tindakan</th>
                             <th>Biaya</th>
-                            <th>Aksi</th>
+                            @if(!$pasien->pembayaran)
+                                <th>Aksi</th>
+                            @endif
                         </tr>
                         </thead>
 
@@ -73,18 +83,20 @@
                                 <td>{{$d->obat ? $d->obat->nama_obat : '-'}}</td>
                                 <td>{{$d->tindakan ? $d->tindakan->nama_tindakan : '-'}}</td>
                                 <td>Rp. {{number_format($d->biaya,0)}}</td>
-                                <td width="50">
-                                    <a class="btn btn-sm btn-primary" id="editData" data-id="{{$d->id}}" data-hobat="{{$d->obat ? $d->obat->harga : 0}}"
-                                       data-htindakan="{{$d->tindakan ? $d->tindakan->harga : 0}}" data-hdokter="{{$d->dokter ? $d->dokter->tarif : 0}}" data-harga="{{$d->biaya}}"
-                                       data-suhu="{{$d->suhu_badan}}" data-tensi="{{$d->tensi_darah}}" data-tindakan="{{$d->tindakan ? $d->tindakan->id : ''}}"
-                                       data-obat="{{$d->obat ? $d->obat->id : ''}}" data-tanggal="{{$d->tanggal}}" data-perawat="{{$d->perawat ? $d->perawat->id : ''}}"
-                                       data-dokter="{{$d->dokter ? $d->dokter->id : ''}}" data-image="{{$d->url_foto}}">Edit</a>
-                                    <a class="btn btn-sm btn-danger" id="deleteData" onclick="hapus('{{$d->id}}','')">Hapus</a>
-                                </td>
+                                @if(!$pasien->pembayaran)
+                                    <td width="50">
+                                        <a class="btn btn-sm btn-primary" id="editData" data-id="{{$d->id}}" data-hobat="{{$d->obat ? $d->obat->harga : 0}}"
+                                           data-htindakan="{{$d->tindakan ? $d->tindakan->harga : 0}}" data-hdokter="{{$d->dokter ? $d->dokter->tarif : 0}}" data-harga="{{$d->biaya}}"
+                                           data-suhu="{{$d->suhu_badan}}" data-tensi="{{$d->tensi_darah}}" data-tindakan="{{$d->tindakan ? $d->tindakan->id : ''}}"
+                                           data-obat="{{$d->obat ? $d->obat->id : ''}}" data-tanggal="{{$d->tanggal}}" data-perawat="{{$d->perawat ? $d->perawat->id : ''}}"
+                                           data-dokter="{{$d->dokter ? $d->dokter->id : ''}}" data-image="{{$d->url_foto}}">Edit</a>
+                                        <a class="btn btn-sm btn-danger" id="deleteData" onclick="hapus('{{$d->id}}','')">Hapus</a>
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center" colspan="10">Tidak ada kategori</td>
+                                <td class="text-center" colspan="10">Tidak ada data</td>
                             </tr>
                         @endforelse
 
@@ -179,41 +191,46 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="form" onsubmit="return save()">
+                        <form id="formBayar" onsubmit="return checkout()">
                             @csrf
-                            <input id="id" name="id" type="number" hidden>
-
-
+                            <input id="id" name="id_rawat" type="number" hidden value="{{$pasien->id}}">
                             <div class="mb-3 mt-3">
                                 <label for="noreg" class="form-label">Nomor Registrasi</label>
-                                <input type="text" class="form-control" id="noreg" readonly name="noreg">
+                                <input type="text" class="form-control" id="noreg" readonly value="{{$pasien->pasien->no_rm}}">
                             </div>
 
                             <div class="mb-3 mt-3">
                                 <label for="nama" class="form-label">Nama Pasien</label>
-                                <input type="text" class="form-control" id="nama" name="nama" readonly>
+                                <input type="text" class="form-control" id="nama" readonly value="{{$pasien->pasien->nama}}">
                             </div>
 
                             <div class="mb-3 mt-3">
                                 <label for="biayakamar" class="form-label">Total Biaya Kamar</label>
-                                <input type="text" class="form-control" id="biayakamar" name="biayakamar" readonly>
+                                <input type="text" class="form-control text-end" id="biayakamar" readonly
+                                       value="{{number_format($pasien->kamar->harga)}}  x {{$hari}} hari = {{number_format($pasien->kamar->harga * $hari,0)}}">
                             </div>
 
                             <div class="mb-3 mt-3">
                                 <label for="biayaperawatan" class="form-label">Total Biaya Perawatan</label>
-                                <input type="text" class="form-control" id="biayaperawatan" name="biayaperawatan"
-                                    readonly>
+                                <input type="text" class="form-control text-end" id="biayaperawatan" value="{{number_format($total_biaya,0)}}"
+                                       readonly>
                             </div>
 
                             <div class="mb-3 mt-3">
                                 <label for="biayaperawatan" class="form-label">Total Keseluruhan</label>
-                                <input type="text" class="form-control" id="biayaperawatan" name="biayaperawatan"
-                                    readonly>
+                                <input type="text" class="form-control text-end" id="biayaperawatan" value="{{number_format(($pasien->kamar->harga * $hari) + $total_biaya, 0)}}"
+                                       readonly>
                             </div>
 
                             <div class="mb-4"></div>
-                            <a type="submit" class="btn btn-primary" target="_blank" href="#">Bayar</a>
-                            <a type="submit" class="btn btn-success" target="_blank" href="/admin/cetakpembayaran">Cetak Tagihan</a>
+                            <input hidden name="biaya_kamar" value="{{$pasien->kamar->harga}}">
+                            <input hidden name="jumlah_hari" value="{{$hari}}">
+                            <input hidden name="total_biaya_kamar" value="{{$hari * $pasien->kamar->harga}}">
+                            <input hidden name="biaya_perawatan" value="{{$total_biaya}}">
+                            <input hidden name="total_biaya" value="{{$total_biaya + ($hari * $pasien->kamar->harga)}}">
+                            <input hidden name="status" value="1">
+                            <button type="submit" class="btn btn-primary">Bayar</button>
+                            <a type="submit" class="btn btn-success" target="_blank" href="/admin/cetakpembayaran/{{$pasien->id}}">Cetak Tagihan</a>
                             <a type="submit" class="btn btn-warning" target="_blank" href="/admin/cetakpembayarandetail">Cetak Rincian</a>
                         </form>
                     </div>
@@ -229,7 +246,7 @@
     <script>
         var hdokter = 0, hobat = 0, htindakan = 0;
 
-        $(document).on('click', ' #checkoutp', function() {
+        $(document).on('click', ' #checkoutp', function () {
             $('#checkout').modal('show')
         });
 
@@ -280,6 +297,11 @@
                 title = 'Edit'
             }
             saveData(title + ' data', 'form');
+            return false;
+        }
+
+        function checkout() {
+            saveData('Checkout Pembayaran', 'formBayar', window.location.pathname + '/bayar');
             return false;
         }
 

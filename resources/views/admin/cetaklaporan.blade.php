@@ -125,7 +125,12 @@
                         </h4>
                         <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: .8rem">Laporan Rawat Inap
                         </h5>
-                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: .8rem">Periode start -end
+                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: .8rem">Periode
+                            @if($start)
+                                <span >{{date('d F Y', strtotime($start))}} - {{date('d F Y', strtotime($end))}}</span>
+                            @else
+                                <span>Semua</span>
+                            @endif
                         </h5>
 
                     </div>
@@ -140,45 +145,47 @@
         </table>
         <hr>
 
-   
+
 
         <p>Tabel Rawat Inap</p>
         <table style=" table-layout:fixed; ">
-            
-
             <tr>
-                <th style="font-size: .6rem">#</th>
-                <th style="font-size: .6rem">Nama Pasien</th>
-                <th style="font-size: .6rem">Tanggal Masuk</th>
-                <th style="font-size: .6rem">Tanggal Keluar</th>
-                <th style="font-size: .6rem">Penanggung Jawab</th>
-                <th style="font-size: .6rem">Diagnosa</th>
-                <th style="font-size: .6rem">Penerimaan</th>
-                <th style="font-size: .6rem">BIAYA</th>
+                <th class="text-center">#</th>
+                <th class="text-center">Nama Pasien</th>
+                <th class="text-center">No Registrasi</th>
+                <th class="text-center">Tanggal Masuk</th>
+                <th class="text-center">Tanggal Keluar</th>
+                <th class="text-center">Penanggung Jawab</th>
+                <th class="text-center">Diagnosa</th>
+                <th class="text-center">Penerimaan</th>
             </tr>
-                
+            </thead>
+            @forelse($data as $key => $d)
+                <tr>
+                    <td>{{$key +1}}</td>
+                    <td>{{$d->pasien->nama}}</td>
+                    <td>{{$d->no_reg}}</td>
+                    <td>{{ \Carbon\Carbon::parse($d->tanggal_masuk)->isoFormat('LL, HH:mm')}}</td>
+                    <td>{{ \Carbon\Carbon::parse($d->tanggal_keluar)->isoFormat('LL, HH:mm')}}</td>
+                    <td>{{$d->penanggung_jawab}}</td>
+                    <td>{{$d->diagnosa_awal}}</td>
+                    <td>{{$d->penerimaan}}</td>
+                </tr>
+            @empty
+                <td colspan="8" class="text-center">Tidak ada data</td>
+            @endforelse
+        </table>
+
+        <table style="border: none; margin-top: 40px">
             <tr>
-                <td style="font-size: .6rem">#</td>
-                <td style="font-size: .6rem">Nama Pasien</td>
-                <td style="font-size: .6rem">Tanggal Masuk</td>
-                <td style="font-size: .6rem">Tanggal Keluar</td>
-                <td style="font-size: .6rem">Penanggung Jawab</td>
-                <td style="font-size: .6rem">Diagnosa</td>
-                <td style="font-size: .6rem">Penerimaan</td>
-                <td style="font-size: .6rem">BIAYA</td>
+                <td class="text-center" style="padding-bottom: 50px; text-transform: unset">Pimpinan</td>
+                <td class="text-center" style="padding-bottom: 50px; text-transform: unset">Admin</td>
+            </tr>
+            <tr>
+                <td class="text-center">( ........................... )</td>
+                <td class="text-center">( ........................... )</td>
             </tr>
         </table>
-       
-        <div style="right:10px;width: 300px;display: inline-block;margin-top:70px">
-            <p class="text-center ; " style="margin-bottom: 70px">Pimpinan</p>
-            <p class="text-center">( ........................... )</p>
-        </div>
-
-        <div style="left:10px;width: 300px; margin-left : 100px;display: inline-block">
-            <p class="text-center " style="margin-bottom: 70px">Admin</p>
-            <p class="text-center">( ........................... )</p>
-            {{-- <p class="text-center">( {{ auth()->user()->username }} )</p> --}}
-        </div>
 
 
         <footer class="footer">

@@ -21,7 +21,7 @@ class RawatInap extends Model
         'penerimaan',
     ];
 
-    protected $with = ['pasien', 'kamar'];
+    protected $with = ['pasien', 'kamar','pembayaran'];
 
     public function pasien()
     {
@@ -36,6 +36,10 @@ class RawatInap extends Model
     public function perawatan()
     {
         return $this->hasMany(Perawatan::class, 'id_rawat');
+    }
+
+    public function pembayaran(){
+        return $this->hasOne(Pembayaran::class, 'id_rawat');
     }
 
     public static function boot()
