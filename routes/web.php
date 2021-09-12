@@ -53,6 +53,9 @@ Route::post('/login', [AuthController::class,'login']);
 Route::get('/logout', [AuthController::class,'logout']);
 Route::post('/register-member', [AuthController::class, 'registerMember']);
 Route::get('/admin/cetakpersetujuan',[LaporanController::class, 'cetakpersetujuan']);
+Route::get('/admin/cetakpembayaran',[LaporanController::class, 'cetakpembayaran']);
+Route::get('/admin/cetakpembayarandetail',[LaporanController::class, 'cetakpembayarand']);
+Route::get('/admin/cetaklaporan',[LaporanController::class, 'cetaklaporan']);
 
 Route::post('/login', [AuthController::class,'login']);
 

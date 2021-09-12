@@ -121,8 +121,12 @@
 
                 <td>
                     <div>
-                        <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem">KLINIK .........</h4>
-                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem">Kota Surakarta</h5>
+                        <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">KLINIK .........
+                        </h4>
+                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: .8rem">Laporan Rawat Inap
+                        </h5>
+                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: .8rem">Periode start -end
+                        </h5>
 
                     </div>
                 </td>
@@ -136,54 +140,42 @@
         </table>
         <hr>
 
-        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem; margin-top: 70px; margin-bottom: 40px">SURAT PERSETUJUAN RAWAT INAP</h5>
-        
-        <p>I. IDENTITAS PASIEN</p>
-        <table style="border: none; width: 250px; table-layout:fixed; ">
-            <tr style="width: 50px">
-                <td style="text-align: left; width: 50px">Nama</td>
-                <td style="text-align: left; width: 50px">:</td>
-                <td style="text-align: left; width: 50px">Joko</td>
+   
+
+        <p>Tabel Rawat Inap</p>
+        <table style=" table-layout:fixed; ">
+            
+
+            <tr>
+                <th style="font-size: .6rem">#</th>
+                <th style="font-size: .6rem">Nama Pasien</th>
+                <th style="font-size: .6rem">Tanggal Masuk</th>
+                <th style="font-size: .6rem">Tanggal Keluar</th>
+                <th style="font-size: .6rem">Penanggung Jawab</th>
+                <th style="font-size: .6rem">Diagnosa</th>
+                <th style="font-size: .6rem">Penerimaan</th>
+                <th style="font-size: .6rem">BIAYA</th>
             </tr>
-            <tr style="width: 5px">
-                <td style="text-align: left; width: 1px" >No. RM</td>
-                <td style="text-align: left; width: 1px">:</td>
-                <td style="text-align: left; width: 1px">13215464</td>
-            </tr>
-            <tr style="text-align: left">
-                <td style="text-align: left">Alamat</td>
-                <td style="text-align: left">:</td>
-                <td style="text-align: left">Solo</td>
+                
+            <tr>
+                <td style="font-size: .6rem">#</td>
+                <td style="font-size: .6rem">Nama Pasien</td>
+                <td style="font-size: .6rem">Tanggal Masuk</td>
+                <td style="font-size: .6rem">Tanggal Keluar</td>
+                <td style="font-size: .6rem">Penanggung Jawab</td>
+                <td style="font-size: .6rem">Diagnosa</td>
+                <td style="font-size: .6rem">Penerimaan</td>
+                <td style="font-size: .6rem">BIAYA</td>
             </tr>
         </table>
-
-        <p>II. KELUARGA / PENANGGUNG JAWAB</p>
-        <table style="border: none; width: 250px; table-layout:fixed; ">
-            <tr style="width: 30px">
-                <td style="text-align: left; width: 30px">Nama</td>
-                <td style="text-align: left; width: 30px">:</td>
-                <td style="text-align: left; width: 30px">Joko</td>
-            </tr>
-            {{-- <tr style="width: 5px">
-                <td style="text-align: left; width: 1px" >No. Hp</td>
-                <td style="text-align: left; width: 1px">:</td>
-                <td style="text-align: left; width: 1px">13215464</td>
-            </tr> --}}
-            <tr style="text-align: left">
-                <td style="text-align: left">Alamat</td>
-                <td style="text-align: left">:</td>
-                <td style="text-align: left">Solo</td>
-            </tr>
-        </table>
-
-        <p>Dengan surat ini saya bertindak sebagai penanggung jawab pasien tersebut diatas menyatakan bahwa setuju untuk merawat inap di klinik........</p>
+       
         <div style="right:10px;width: 300px;display: inline-block;margin-top:70px">
-            <p class="text-center ; " style="margin-bottom: 70px" >Pimpinan</p>
+            <p class="text-center ; " style="margin-bottom: 70px">Pimpinan</p>
             <p class="text-center">( ........................... )</p>
         </div>
 
         <div style="left:10px;width: 300px; margin-left : 100px;display: inline-block">
-            <p class="text-center " style="margin-bottom: 70px">Penanggung Jawab</p>
+            <p class="text-center " style="margin-bottom: 70px">Admin</p>
             <p class="text-center">( ........................... )</p>
             {{-- <p class="text-center">( {{ auth()->user()->username }} )</p> --}}
         </div>

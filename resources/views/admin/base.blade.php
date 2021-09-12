@@ -104,7 +104,7 @@
         <a href="/admin/laporan" id="laporan">
             <li href="#" class="nav-link t-white">
                 <i class="bx bxs-file"></i>
-                <span class="mx-2">Laporan</span>
+                <span class="mx-2">Laporan Rawat Inap</span>
             </li>
 
         </a>

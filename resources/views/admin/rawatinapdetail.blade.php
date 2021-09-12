@@ -34,7 +34,7 @@
 
                     <hr>
                     <a class="btn btn-warning" href="/admin/cetakpersetujuan"> Cetak Persetujuan</a>
-                    <a class="btn btn-primary"> Checkout</a>
+                    <a class="btn btn-primary" id="checkoutp"> Checkout</a>
                 </div>
             </div>
             <div class="col-8">
@@ -170,6 +170,56 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="checkout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Form Checkout</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form" onsubmit="return save()">
+                            @csrf
+                            <input id="id" name="id" type="number" hidden>
+
+
+                            <div class="mb-3 mt-3">
+                                <label for="noreg" class="form-label">Nomor Registrasi</label>
+                                <input type="text" class="form-control" id="noreg" readonly name="noreg">
+                            </div>
+
+                            <div class="mb-3 mt-3">
+                                <label for="nama" class="form-label">Nama Pasien</label>
+                                <input type="text" class="form-control" id="nama" name="nama" readonly>
+                            </div>
+
+                            <div class="mb-3 mt-3">
+                                <label for="biayakamar" class="form-label">Total Biaya Kamar</label>
+                                <input type="text" class="form-control" id="biayakamar" name="biayakamar" readonly>
+                            </div>
+
+                            <div class="mb-3 mt-3">
+                                <label for="biayaperawatan" class="form-label">Total Biaya Perawatan</label>
+                                <input type="text" class="form-control" id="biayaperawatan" name="biayaperawatan"
+                                    readonly>
+                            </div>
+
+                            <div class="mb-3 mt-3">
+                                <label for="biayaperawatan" class="form-label">Total Keseluruhan</label>
+                                <input type="text" class="form-control" id="biayaperawatan" name="biayaperawatan"
+                                    readonly>
+                            </div>
+
+                            <div class="mb-4"></div>
+                            <a type="submit" class="btn btn-primary" target="_blank" href="#">Bayar</a>
+                            <a type="submit" class="btn btn-success" target="_blank" href="/admin/cetakpembayaran">Cetak Tagihan</a>
+                            <a type="submit" class="btn btn-warning" target="_blank" href="/admin/cetakpembayarandetail">Cetak Rincian</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 
@@ -178,6 +228,10 @@
 @section('script')
     <script>
         var hdokter = 0, hobat = 0, htindakan = 0;
+
+        $(document).on('click', ' #checkoutp', function() {
+            $('#checkout').modal('show')
+        });
 
         $(document).on('click', '#editData, #addData', function () {
             $('#tambahkategori #id').val($(this).data('id'))

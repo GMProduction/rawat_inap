@@ -121,8 +121,10 @@
 
                 <td>
                     <div>
-                        <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem">KLINIK .........</h4>
-                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem">Kota Surakarta</h5>
+                        <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">KLINIK .........
+                        </h4>
+                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">Kota Surakarta
+                        </h5>
 
                     </div>
                 </td>
@@ -136,8 +138,10 @@
         </table>
         <hr>
 
-        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem; margin-top: 70px; margin-bottom: 40px">SURAT PERSETUJUAN RAWAT INAP</h5>
-        
+        <h5
+            style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.4rem; margin-top: 70px; margin-bottom: 40px">
+            RINCIAN TAGIHAN RAWAT INAP</h5>
+
         <p>I. IDENTITAS PASIEN</p>
         <table style="border: none; width: 250px; table-layout:fixed; ">
             <tr style="width: 50px">
@@ -146,7 +150,7 @@
                 <td style="text-align: left; width: 50px">Joko</td>
             </tr>
             <tr style="width: 5px">
-                <td style="text-align: left; width: 1px" >No. RM</td>
+                <td style="text-align: left; width: 1px">No. Registrasi</td>
                 <td style="text-align: left; width: 1px">:</td>
                 <td style="text-align: left; width: 1px">13215464</td>
             </tr>
@@ -157,28 +161,70 @@
             </tr>
         </table>
 
-        <p>II. KELUARGA / PENANGGUNG JAWAB</p>
-        <table style="border: none; width: 250px; table-layout:fixed; ">
+        <p>II. BIAYA KAMAR</p>
+        <table style=" table-layout:fixed; ">
             <tr style="width: 30px">
-                <td style="text-align: left; width: 30px">Nama</td>
-                <td style="text-align: left; width: 30px">:</td>
-                <td style="text-align: left; width: 30px">Joko</td>
+                <td style="text-align: left; width: 30px">Biaya Kamar</td>
+                <td style="text-align: left; width: 30px">4hari</td>
+                <td style="text-align: right; font-weight: bold">Rp 1.200.000</td>
             </tr>
-            {{-- <tr style="width: 5px">
-                <td style="text-align: left; width: 1px" >No. Hp</td>
-                <td style="text-align: left; width: 1px">:</td>
-                <td style="text-align: left; width: 1px">13215464</td>
-            </tr> --}}
-            <tr style="text-align: left">
-                <td style="text-align: left">Alamat</td>
-                <td style="text-align: left">:</td>
-                <td style="text-align: left">Solo</td>
-            </tr>
+
         </table>
 
-        <p>Dengan surat ini saya bertindak sebagai penanggung jawab pasien tersebut diatas menyatakan bahwa setuju untuk merawat inap di klinik........</p>
+        <p>III. BIAYA PERAWATAN</p>
+        <table style=" table-layout:fixed; ">
+            
+
+            <tr>
+                <th>
+                    Perawat
+                </th>
+                <th>
+                    Dokter
+                </th>
+                <th>
+                    Tanggal
+                </th>
+                <th>
+                    Obat
+                </th>
+                <th>
+                    Tindakan
+                </th>
+                <th>
+                    Biaya
+                </th>
+            </tr>
+            <tr style="width: 30px">
+                <td>
+                    Perawat
+                </td>
+                <td>
+                    Dokter
+                </td>
+                <td>
+                    Tanggal
+                </td>
+                <td>
+                    Obat
+                </td>
+                <td>
+                    Tindakan
+                </td>
+                <td>
+                    Biaya
+                </td>
+       
+
+        </table>
+        <table>
+            <tr style="text-align: left; border-top: 1px solid grey">
+                <td style="text-align: left; font-weight: bold">Total</td>
+                <td style="text-align: right; font-weight: bold">Rp 4.200.000</td>
+            </tr>
+        </table>
         <div style="right:10px;width: 300px;display: inline-block;margin-top:70px">
-            <p class="text-center ; " style="margin-bottom: 70px" >Pimpinan</p>
+            <p class="text-center ; " style="margin-bottom: 70px">Pimpinan</p>
             <p class="text-center">( ........................... )</p>
         </div>
 
