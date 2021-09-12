@@ -19,7 +19,10 @@ class PasienController extends Controller
             return $this->store();
         }
         $last =  $this->getData()->last();
-        $invID = str_pad((int)$last->id+ (int) 1, 3, '0', STR_PAD_LEFT);
+        $invID = str_pad(1, 3, '0', STR_PAD_LEFT);
+        if ($last){
+            $invID = str_pad((int)$last->id+ (int) 1, 3, '0', STR_PAD_LEFT);
+        }
         $data = [
             'data' => $this->getData(),
             'count' => $invID
