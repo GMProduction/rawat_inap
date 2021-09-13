@@ -123,14 +123,14 @@
 
             <td class="text-center">
                 <div>
-                    <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">KLINIK .........</h4>
+                    <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">KLINIK MUTIARA ASRI</h4>
                     <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">Kota Surakarta</h5>
 
                 </div>
             </td>
 
             <td class="text-center">
-                <img src="{{ public_path('static-image/logo.png') }}" style="width: 80px;"/>
+                <img src="{{ public_path('static-image/solo.png') }}" style="width: 80px;"/>
 
             </td>
 

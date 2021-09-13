@@ -121,7 +121,7 @@
 
                 <td>
                     <div>
-                        <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">KLINIK .........
+                        <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">KLINIK MUTIARA ASRI
                         </h4>
                         <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">Kota Surakarta
                         </h5>
@@ -130,7 +130,7 @@
                 </td>
 
                 <td>
-                    <img src="{{ public_path('static-image/logo.png') }}" style="width: 120px;" />
+                    <img src="{{ public_path('static-image/solo.png') }}" style="width: 120px;" />
 
                 </td>
 
