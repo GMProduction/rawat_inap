@@ -123,7 +123,7 @@
                     <div>
                         <h4 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">KLINIK MUTIARA ASRI
                         </h4>
-                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">Kota Surakarta
+                        <h5 style=" text-align: center;margin-bottom:0;margin-top:0; font-size: 1.2rem">KECAMATAN CEPOGO
                         </h5>
 
                     </div>
