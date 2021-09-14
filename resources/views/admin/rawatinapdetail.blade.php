@@ -61,6 +61,7 @@
                             <th>Dokter</th>
                             <th>Perawat</th>
                             <th>Tanggal</th>
+                            <th>Anamnesa</th>
                             <th>Tensi</th>
                             <th>Suhu</th>
                             <th>Obat</th>
@@ -78,6 +79,7 @@
                                 <td>{{$d->dokter ? $d->dokter->nama : '-'}}</td>
                                 <td>{{$d->perawat ? $d->perawat->nama : '-'}}</td>
                                 <td>{{\Carbon\Carbon::parse($d->tanggal)->isoFormat('LL, HH:mm')}}</td>
+                                <td>{{$d->anamnesa}}</td>
                                 <td>{{$d->tensi_darah}}</td>
                                 <td>{{$d->suhu_badan}}</td>
                                 <td>{{$d->obat ? $d->obat->nama_obat : '-'}}</td>
@@ -87,7 +89,7 @@
                                     <td width="50">
                                         <a class="btn btn-sm btn-primary" id="editData" data-id="{{$d->id}}" data-hobat="{{$d->obat ? $d->obat->harga : 0}}"
                                            data-htindakan="{{$d->tindakan ? $d->tindakan->harga : 0}}" data-hdokter="{{$d->dokter ? $d->dokter->tarif : 0}}" data-harga="{{$d->biaya}}"
-                                           data-suhu="{{$d->suhu_badan}}" data-tensi="{{$d->tensi_darah}}" data-tindakan="{{$d->tindakan ? $d->tindakan->id : ''}}"
+                                           data-anamnesa="{{$d->anamnesa}}" data-suhu="{{$d->suhu_badan}}" data-tensi="{{$d->tensi_darah}}" data-tindakan="{{$d->tindakan ? $d->tindakan->id : ''}}"
                                            data-obat="{{$d->obat ? $d->obat->id : ''}}" data-tanggal="{{$d->tanggal}}" data-perawat="{{$d->perawat ? $d->perawat->id : ''}}"
                                            data-dokter="{{$d->dokter ? $d->dokter->id : ''}}" data-image="{{$d->url_foto}}">Edit</a>
                                         <a class="btn btn-sm btn-danger" id="deleteData" onclick="hapus('{{$d->id}}','')">Hapus</a>
@@ -121,7 +123,7 @@
                             <input id="id" name="id" type="number" hidden>
 
                             <label class="mt-3">Dokter</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="dokter" name="id_dokter">
+                            <select class=" me-2 w-100 form-select" aria-label="select" id="dokter" name="id_dokter">
                                 <option value="" data-harga="0" data-type="hdokter">Tanpa Dokter</option>
                                 @foreach($dokter as $d)
                                     <option value="{{$d->id}}" data-type="hdokter" data-harga="{{$d->tarif}}">{{$d->nama}}</option>
@@ -129,7 +131,7 @@
                             </select>
 
                             <label class="mt-3">Perawat</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="perawat" name="id_perawat">
+                            <select class=" me-2 w-100 form-select" aria-label="select" id="perawat" name="id_perawat">
                                 <option value="">Tanpa Perawat</option>
                                 @foreach($perawat as $d)
                                     <option value="{{$d->id}}">{{$d->nama}}</option>
@@ -143,7 +145,7 @@
                             </div>
 
                             <label class="mt-3">Obat</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="obat" name="id_obat">
+                            <select class=" me-2 w-100 form-select" aria-label="select" id="obat" name="id_obat">
                                 <option value="" data-harga="0" data-type="hobat">Tanpa Obat</option>
                                 @foreach($obat as $d)
                                     <option value="{{$d->id}}" data-type="hobat" data-harga="{{$d->harga}}">{{$d->nama_obat}}</option>
@@ -151,7 +153,7 @@
                             </select>
 
                             <label class="mt-3">tindakan</label>
-                            <select class=" me-2 w-100 form-control" aria-label="select" id="tindakan" name="id_tindakan">
+                            <select class=" me-2 w-100 form-select" aria-label="select" id="tindakan" name="id_tindakan">
                                 <option value="" data-harga="0" data-type="htindakan">Tanpa Tindakan</option>
                                 @foreach($tindakan as $d)
                                     <option value="{{$d->id}}" data-type="htindakan" data-harga="{{$d->harga}}">{{$d->nama_tindakan}}</option>
@@ -159,6 +161,10 @@
                             </select>
 
 
+                            <div class="mb-3 mt-3">
+                                <label for="anamnesa" class="form-label">Anamnesa</label>
+                                <input type="text" class="form-control" id="anamnesa" name="anamnesa" required>
+                            </div>
                             <div class="mb-3 mt-3">
                                 <label for="tensi" class="form-label">Tensi Darah</label>
                                 <input type="text" class="form-control" id="tensi" name="tensi_darah" required>
@@ -256,6 +262,7 @@
             $('#tambahkategori #perawat').val($(this).data('perawat'))
             $('#tambahkategori #obat').val($(this).data('obat'))
             $('#tambahkategori #tindakan').val($(this).data('tindakan'))
+            $('#tambahkategori #anamnesa').val($(this).data('anamnesa'))
             $('#tambahkategori #tensi').val($(this).data('tensi'))
             $('#tambahkategori #suhu').val($(this).data('suhu'))
             var harga = $(this).data('harga') ?? 0;

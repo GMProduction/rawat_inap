@@ -19,6 +19,7 @@ class Perawatan extends Model
         'tensi_darah',
         'suhu_badan',
         'biaya',
+        'anamnesa'
     ];
 
     protected $with = ['dokter','perawat','obat','tindakan'];

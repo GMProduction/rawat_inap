@@ -95,9 +95,11 @@ class RawatInapController extends Controller
             'tensi_darah' => \request('tensi_darah'),
             'suhu_badan' => \request('suhu_badan'),
             'biaya' => \request('biaya'),
+            'anamnesa' => \request('anamnesa'),
         ];
         if (\request('id')){
-            $rawat->perawatan()->update($field);
+            $data = $rawat->perawatan()->find(\request('id'));
+            $data->update($field);
         }else{
             $rawat->perawatan()->create($field);
         }
