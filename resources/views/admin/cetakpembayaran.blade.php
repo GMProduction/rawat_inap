@@ -167,6 +167,7 @@
             <th style="">Dokter</th>
             <th >Perawat</th>
             <th>Tanggal</th>
+            <th>Anamnesa</th>
             <th>Tensi</th>
             <th>Suhu</th>
             <th>Obat</th>
@@ -181,6 +182,7 @@
                 <td>{{$d->dokter ? $d->dokter->nama : '-'}}</td>
                 <td>{{$d->perawat ? $d->perawat->nama : '-'}}</td>
                 <td class="text-center">{{\Carbon\Carbon::parse($d->tanggal)->isoFormat('LL, HH:mm')}}</td>
+                <td class="text-center">{{$d->anamnesa}}</td>
                 <td class="text-center">{{$d->tensi_darah}}</td>
                 <td class="text-center">{{$d->suhu_badan}}</td>
                 <td>{{$d->obat ? $d->obat->nama_obat : '-'}}</td>
@@ -195,15 +197,15 @@
 
 
         <tr style="text-align: left; border-top: 1px solid grey">
-            <td colspan="8" style="text-align: right;;font-weight: bold; border-top: 1px solid gray">Total Biaya Perawatan :</td>
+            <td colspan="9" style="text-align: right;;font-weight: bold; border-top: 1px solid gray">Total Biaya Perawatan :</td>
             <td style="text-align: right; font-weight: bold; border-top: 1px solid gray">Rp {{number_format($total_biaya, 0)}}</td>
         </tr>
         <tr style="text-align: left; border-top: 1px solid grey">
-            <td colspan="8" style="text-align: right;font-weight: bold">Biaya Kamar Rp. {{number_format($pasien->kamar->harga, 0)}} x {{$hari}} hari :</td>
+            <td colspan="9" style="text-align: right;font-weight: bold">Biaya Kamar Rp. {{number_format($pasien->kamar->harga, 0)}} x {{$hari}} hari :</td>
             <td style="text-align: right; font-weight: bold">Rp {{number_format($pasien->kamar->harga * $hari, 0)}}</td>
         </tr>
         <tr style="text-align: left; border-top: 1px solid grey">
-            <td colspan="8" style="text-align: right;font-weight: bold">Grand Total :</td>
+            <td colspan="9" style="text-align: right;font-weight: bold">Grand Total :</td>
             <td style="text-align: right; font-weight: bold">Rp {{number_format(($pasien->kamar->harga * $hari) + $total_biaya, 0)}}</td>
         </tr>
     </table>
