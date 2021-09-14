@@ -103,7 +103,7 @@ class LaporanController extends Controller
 
     public function cetakLaporan()
     {
-        return $this->dataLaporan();
+      
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->dataLaporan())->setPaper('f4', 'potrait');
 

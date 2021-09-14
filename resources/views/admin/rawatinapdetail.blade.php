@@ -35,7 +35,6 @@
                     <hr>
                     @if($pasien->pembayaran)
                         <a type="submit" class="btn btn-success" target="_blank" href="/admin/cetakpembayaran/{{$pasien->id}}">Cetak Tagihan</a>
-                        <a type="submit" class="btn btn-warning" target="_blank" href="/admin/cetakpembayarandetail">Cetak Rincian</a>
                     @else
                         <a class="btn btn-warning" href="/admin/cetakpersetujuan/{{$pasien->id}}" target="_blank"> Cetak Persetujuan</a>
                         <a class="btn btn-primary" id="checkoutp"> Checkout</a>
@@ -237,7 +236,6 @@
                             <input hidden name="status" value="1">
                             <button type="submit" class="btn btn-primary">Bayar</button>
                             <a type="submit" class="btn btn-success" target="_blank" href="/admin/cetakpembayaran/{{$pasien->id}}">Cetak Tagihan</a>
-                            <a type="submit" class="btn btn-warning" target="_blank" href="/admin/cetakpembayarandetail">Cetak Rincian</a>
                         </form>
                     </div>
                 </div>
