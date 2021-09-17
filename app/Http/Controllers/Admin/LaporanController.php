@@ -30,6 +30,13 @@ class LaporanController extends Controller
         return view('admin.laporan')->with(['data' => $data]);
     }
 
+    public function laporanpasien()
+    {
+        $data = $this->getData();
+
+        return view('admin.laporanpasienterdaftar')->with(['data' => $data]);
+    }
+
     public function cetakPersetujuan($id)
     {
         $pdf = \App::make('dompdf.wrapper');
@@ -118,4 +125,42 @@ class LaporanController extends Controller
 
         return view('admin/cetaklaporan')->with(["data" => $data, "start" => $start, "end" => $end]);
     }
+
+    public function cetakLaporanPasienTerdaftar()
+    {
+      
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->dataLaporanPasienTerdaftar())->setPaper('f4', 'potrait');
+
+        return $pdf->stream();
+    }
+
+    public function dataLaporanPasienTerdaftar()
+    {
+        $start = \request('start');
+        $end   = \request('end');
+        $data = $this->getData();
+
+        return view('admin/cetaklaporanpasienterdaftar')->with(["data" => $data, "start" => $start, "end" => $end]);
+    }
+
+
+    public function cetakLaporanPendapatan()
+    {
+      
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->dataLaporanPendapatan())->setPaper('f4', 'potrait');
+
+        return $pdf->stream();
+    }
+
+    public function dataLaporanPendapatan()
+    {
+        $start = \request('start');
+        $end   = \request('end');
+        $data = $this->getData();
+
+        return view('admin/cetaklaporanpendapatan')->with(["data" => $data, "start" => $start, "end" => $end]);
+    }
+
 }

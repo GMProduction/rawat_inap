@@ -100,6 +100,27 @@ Route::prefix('/admin')->middleware('auth')->group(
         Route::get('/cetakpembayaran/{id}', [LaporanController::class, 'cetakpembayaran']);
         Route::get('/cetakpembayarandetail', [LaporanController::class, 'cetakpembayarand']);
         Route::get('/cetaklaporan', [LaporanController::class, 'cetaklaporan']);
+        Route::get('/cetaklaporanterdaftar', [LaporanController::class, 'cetakLaporanPasienTerdaftar']);
+        Route::get('/cetaklaporanpendapatan', [LaporanController::class, 'cetakLaporanPendapatan']);
+
+        Route::get('/laporan', [LaporanController::class, 'index']);
+        Route::get('/laporan-pasien', [LaporanController::class, 'laporanpasien']);
+        
+ 
+
+        Route::get(
+            '/laporan-riwayat',
+            function () {
+                return view('admin/laporanriwayatpasien');
+            }
+        );
+
+        Route::get(
+            '/laporan-pendapatan',
+            function () {
+                return view('admin/laporanpendapatan');
+            }
+        );
     }
 );
 

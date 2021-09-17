@@ -109,6 +109,37 @@
 
         </a>
 
+        
+        <a href="/admin/laporan-pasien" id="laporan">
+            <li href="#" class="nav-link t-white">
+                <i class="bx bxs-file"></i>
+                <span class="mx-2" style="font-size: .8rem">Laporan Pasien Terdaftar</span>
+            </li>
+
+        </a>
+
+
+        
+        <a href="/admin/laporan-riwayat" id="laporan">
+            <li href="#" class="nav-link t-white">
+                <i class="bx bxs-file"></i>
+                <span class="mx-2" style="font-size: .8rem">Laporan Riwayat Pasien</span>
+            </li>
+
+        </a>
+
+
+        
+        <a href="/admin/laporan-pendapatan" id="laporan">
+            <li href="#" class="nav-link t-white">
+                <i class="bx bxs-file"></i>
+                <span class="mx-2" style="font-size: .8rem">Laporan Pendapatan</span>
+            </li>
+
+        </a>
+
+
+        
 
         <a href="/logout" class="mt-auto">
             <li href="#" class="nav-link t-white">
