@@ -39,5 +39,8 @@ class Perawatan extends Model
     public function tindakan(){
         return $this->belongsTo(Tindakan::class, 'id_tindakan');
     }
+    public function rawat(){
+        return $this->belongsTo(RawatInap::class, 'id_rawat');
+    }
 
 }

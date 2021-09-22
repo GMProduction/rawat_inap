@@ -27,7 +27,7 @@
                                 <input type="text" class="form-control me-2" name="start" style="background-color: white" readonly value="{{ request('start') }}"
                                        required>
                                 <div class="input-group-addon">to</div>
-                                <input type="text" class="form-control ms-2" name="end"  style="background-color: white" readonly value="{{ request('end') }}"
+                                <input type="text" class="form-control ms-2" name="end" style="background-color: white" readonly value="{{ request('end') }}"
                                        required>
                             </div>
                         </div>
@@ -49,41 +49,20 @@
                     <th class="text-center">Biaya</th>
                 </tr>
                 </thead>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        Joko
-                    </td>
-                    <td>
-                        re-1231
-                    </td>
-                    <td>
-                        12 September 2021
-                    </td>
-                    <td>
-                        15 September 2021
-                    </td> <td>
-                        150.000
-                    </td>
-
-                </tr>
-                {{-- @forelse($data as $key => $d)
+                @forelse($data as $key => $d)
                     <tr>
-                        <td>{{$key +1}}</td>
-                        <td>{{$d->pasien->nama}}</td>
-                        <td>{{$d->no_reg}}</td>
-                        <td>{{ \Carbon\Carbon::parse($d->tanggal_masuk)->isoFormat('LL, HH:mm')}}</td>
-                        <td>{{ \Carbon\Carbon::parse($d->tanggal_keluar)->isoFormat('LL, HH:mm')}}</td>
-                        <td>{{$d->penanggung_jawab}}</td>
-                        <td>{{$d->diagnosa_awal}}</td>
-                        <td>{{$d->penerimaan}}</td>
+                        <td>{{$key + 1}}</td>
+                        <td>{{$d->rawat->pasien->nama}}</td>
+                        <td>{{$d->rawat->no_reg}}</td>
+                        <td>{{date('d F Y', strtotime($d->rawat->tanggal_masuk))}}</td>
+                        <td>{{date('d F Y', strtotime($d->rawat->tanggal_keluar))}}</td>
+                        <td>{{number_format($d->total_biaya, 0)}}</td>
                     </tr>
                 @empty
-                    <td colspan="8" class="text-center">Tidak ada data</td>
-                @endforelse --}}
-
+                    <tr>
+                        <td class="text-center" colspan="6">Tidak ada data</td>
+                    </tr>
+                @endforelse
             </table>
 
         </div>

@@ -18,4 +18,8 @@ class Pembayaran extends Model
         'total_biaya',
         'status',
     ];
+
+    public function rawat(){
+        return $this->belongsTo(RawatInap::class, 'id_rawat');
+    }
 }

@@ -21,4 +21,14 @@ class Pasien extends Model
         'jenis_kelamin',
         'agama',
     ];
+
+    public function scopeFilter($query, $filter)
+    {
+        $query->when(
+            $filter ?? false,
+            function ($query, $name) {
+                return $query->where('nama', 'like', '%'.$name.'%');
+            }
+        );
+    }
 }

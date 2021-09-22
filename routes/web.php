@@ -105,22 +105,11 @@ Route::prefix('/admin')->middleware('auth')->group(
 
         Route::get('/laporan', [LaporanController::class, 'index']);
         Route::get('/laporan-pasien', [LaporanController::class, 'laporanpasien']);
-        
- 
 
-        Route::get(
-            '/laporan-riwayat',
-            function () {
-                return view('admin/laporanriwayatpasien');
-            }
-        );
+        Route::get('/laporan-riwayat',[LaporanController::class, 'laporanRiwayatPasien']);
+        Route::get('/laporan-riwayat/{id}',[LaporanController::class, 'laporanRiwayatPasienDetail']);
 
-        Route::get(
-            '/laporan-pendapatan',
-            function () {
-                return view('admin/laporanpendapatan');
-            }
-        );
+        Route::get('/laporan-pendapatan',[LaporanController::class,'laporanPendapatan']);
     }
 );
 

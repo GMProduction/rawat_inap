@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\RawatInapController;
+use App\Models\Pasien;
+use App\Models\Pembayaran;
+use App\Models\Perawatan;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 
@@ -17,9 +20,10 @@ class LaporanController extends Controller
         $end   = \request('end');
         $rawat = new RawatInapController();
         $data  = $rawat->getData()->where('tanggal_keluar', '!=', null);
-        if ($start){
-            $data = $data->whereBetween('tanggal_masuk',[date('Y-m-d 00:00:00', strtotime($start)), date('Y-m-d 23:59:59', strtotime($end))]);
+        if ($start) {
+            $data = $data->whereBetween('tanggal_masuk', [date('Y-m-d 00:00:00', strtotime($start)), date('Y-m-d 23:59:59', strtotime($end))]);
         }
+
         return $data;
     }
 
@@ -110,7 +114,7 @@ class LaporanController extends Controller
 
     public function cetakLaporan()
     {
-      
+
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->dataLaporan())->setPaper('f4', 'potrait');
 
@@ -121,14 +125,14 @@ class LaporanController extends Controller
     {
         $start = \request('start');
         $end   = \request('end');
-        $data = $this->getData();
+        $data  = $this->getData();
 
         return view('admin/cetaklaporan')->with(["data" => $data, "start" => $start, "end" => $end]);
     }
 
     public function cetakLaporanPasienTerdaftar()
     {
-      
+
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->dataLaporanPasienTerdaftar())->setPaper('f4', 'potrait');
 
@@ -139,15 +143,53 @@ class LaporanController extends Controller
     {
         $start = \request('start');
         $end   = \request('end');
-        $data = $this->getData();
+        $data  = $this->getData();
 
         return view('admin/cetaklaporanpasienterdaftar')->with(["data" => $data, "start" => $start, "end" => $end]);
     }
 
+    public function laporanRiwayatPasien()
+    {
+        $pasien = Pasien::filter(\request('name'))->get();
+
+        return view('admin.laporanriwayatpasien')->with(['data' => $pasien]);
+    }
+
+    public function laporanRiwayatPasienDetail($id)
+    {
+        $perawatan = Perawatan::whereHas(
+            'rawat',
+            function ($query) use ($id) {
+                $query->where('id_pasien', '=', $id);
+            }
+        )->get();
+
+        return $perawatan;
+    }
+
+    public function getPendatapan()
+    {
+
+        $start = \request('start');
+        $end   = \request('end');
+
+        $data = Pembayaran::with('rawat')->get();
+        if ($start) {
+            $data = $data->whereBetween('created_at', [date('Y-m-d 00:00:00', strtotime($start)), date('Y-m-d 23:59:59', strtotime($end))]);
+        }
+
+        return $data;
+    }
+
+    public function laporanPendapatan()
+    {
+        $pembayaran = $this->getPendatapan();
+
+        return view('admin.laporanpendapatan')->with(['data' => $pembayaran]);
+    }
 
     public function cetakLaporanPendapatan()
     {
-      
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->dataLaporanPendapatan())->setPaper('f4', 'potrait');
 
@@ -158,9 +200,9 @@ class LaporanController extends Controller
     {
         $start = \request('start');
         $end   = \request('end');
-        $data = $this->getData();
-
-        return view('admin/cetaklaporanpendapatan')->with(["data" => $data, "start" => $start, "end" => $end]);
+        $data  = $this->getPendatapan();
+        $total = $data->sum('total_biaya');
+        return view('admin/cetaklaporanpendapatan')->with(["data" => $data, "start" => $start, "end" => $end,'total' => $total]);
     }
 
 }

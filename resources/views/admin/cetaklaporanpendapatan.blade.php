@@ -152,29 +152,35 @@
 
         <p>Tabel Rawat Inap</p>
         <table style=" table-layout:fixed; ">
+            <thead>
             <tr>
                 <th class="text-center">#</th>
                 <th class="text-center">Nama Pasien</th>
-                <th class="text-center">Tanggal Lahir</th>
+                <th class="text-center">No Registrasi</th>
+                <th class="text-center">Tanggal Masuk</th>
+                <th class="text-center">Tanggal Keluar</th>
                 <th class="text-center">Biaya</th>
             </tr>
             </thead>
             @forelse($data as $key => $d)
                 <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $d->pasien->nama }}</td>
-                    <td>12 September 1968</td>
-                    <td>150.000</td>
-
+                    <td>{{$key + 1}}</td>
+                    <td>{{$d->rawat->pasien->nama}}</td>
+                    <td>{{$d->rawat->no_reg}}</td>
+                    <td>{{date('d F Y', strtotime($d->rawat->tanggal_masuk))}}</td>
+                    <td>{{date('d F Y', strtotime($d->rawat->tanggal_keluar))}}</td>
+                    <td>{{number_format($d->total_biaya, 0)}}</td>
                 </tr>
             @empty
-                <td colspan="8" class="text-center">Tidak ada data</td>
+                <tr>
+                    <td class="text-center" colspan="6">Tidak ada data</td>
+                </tr>
             @endforelse
         </table>
         <table style=" table-layout:fixed; ">
             <tr>
                 <th class="text-center">Total</th>
-                <td style="text-align: right; margin-right: 100px; font-size: 1.2rem; font-weight: bold">150.000</td>
+                <td style="text-align: right; margin-right: 100px; font-size: 1.2rem; font-weight: bold">{{number_format($total, 0)}}</td>
 
             </tr>
         </table>
@@ -186,7 +192,7 @@
             </tr>
             <tr>
                 <td class="text-center">( ........................... )</td>
-                <td class="text-center">( ........................... )</td>
+                <td class="text-center">( {{auth()->user()->name}} )</td>
             </tr>
         </table>
 

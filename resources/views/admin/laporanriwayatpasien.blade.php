@@ -23,9 +23,9 @@
                     <div class="d-flex align-items-center">
                         {{-- <i class='bx bx-calendar me-2' style="font-size: 1.4rem"></i> --}}
                         <div class="me-2">
-                            <div class="input-group input-daterange">
+                            <div class="input-group">
                                 <label>Nama Pasien</label>
-                                <input type="text" class="form-control ms-2" name="end" style="background-color: white">
+                                <input type="text" class="form-control ms-2" value="{{request('name')}}" name="name" style="background-color: white">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success mx-2">Cari</button>
@@ -37,22 +37,27 @@
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Nama Pasien</th>
-                        <th class="text-center">Alamat</th>
-                        <th class="text-center">Tanggal Lahir</th>
-                        <th class="text-center">Detail</th>
-                    </tr>
-                </thead>
-
                 <tr>
-                    <td>1</td>
-                    <td>Joko</td>
-                    <td>Jl. Bhayangkara 150 Tipes Serengan Surakarta</td>
-                    <td>13 September 2021</td>
-                    <td><a class="btn btn-warning btn-sm" id="detail">Detail</a></td>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Nama Pasien</th>
+                    <th class="text-center">Alamat</th>
+                    <th class="text-center">Tanggal Lahir</th>
+                    <th class="text-center">Detail</th>
                 </tr>
+                </thead>
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td>{{$key + 1}}</td>
+                        <td>{{$d->nama}}</td>
+                        <td>{{$d->alamat}}</td>
+                        <td>{{date('d F Y', strtotime($d->tanggal_lahir))}}</td>
+                        <td class="text-center"><a class="btn btn-warning btn-sm" data-id="{{$d->id}}" id="detail">Detail</a></td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Tidak ada data</td>
+                    </tr>
+                @endforelse
             </table>
 
         </div>
@@ -78,25 +83,13 @@
                                 <th>Obat</th>
                                 <th>Tindakan</th>
                                 <th>Biaya</th>
-                              
                             </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Budi</td>
-                                    <td>-</td>
-                                    <td>12 Septermber 2021</td>
-                                    <td>80</td>
-                                    <td>80</td>
-                                    <td>Paracetamol</td>
-                                    <td>80</td>
-                                    <td>Pemberian Obat</td>
-                                    <td>150.000</td>
-                                </tr>
+                            <tbody id="tbDetail">
+
                             </tbody>
-                           
-    
+
+
                         </table>
                     </div>
                 </div>
@@ -109,18 +102,46 @@
 
 @section('script')
     <script>
-        $(document).on('click', ' #detail', function() {
+        $(document).on('click', ' #detail', function () {
+            var id = $(this).data('id');
+            detailTable(id);
             $('#detailpasien').modal('show')
         });
 
-        $('.input-daterange input').each(function() {
+        $('.input-daterange input').each(function () {
             $(this).datepicker({
                 format: "dd-mm-yyyy"
             });
         });
-        $(document).on('click', '#cetak', function() {
+        $(document).on('click', '#cetak', function () {
             $(this).attr('href', '/admin/cetaklaporan?' + $('#formTanggal').serialize());
         })
+
+        function detailTable(id) {
+            $.get(window.location.pathname+'/'+id, function (data) {
+                console.log(data)
+                $('#tbDetail').empty();
+                $.each(data, function (key, value) {
+                    var dokter = value['dokter'] ? value['dokter']['nama'] : "-";
+                    var perawat = value['perawat'] ? value['perawat']['nama'] : "-";
+                    var obat = value['obat'] ? value['obat']['nama_obat'] : "-";
+                    var tindakan = value['tindakan'] ? value['tindakan']['nama_tindakan'] : "-";
+                    var biaya = value['biaya'] ? value['biaya'].toLocaleString() : '-';
+                    $('#tbDetail').append('<tr>\n' +
+                        '                                <td>'+parseInt(key+1)+'</td>\n' +
+                        '                                <td>'+dokter+'</td>\n' +
+                        '                                <td>perawat</td>\n' +
+                        '                                <td>'+moment(value['tanggal']).format('DD MMMM YYYY')+'</td>\n' +
+                        '                                <td>'+value['anamnesa']+'</td>\n' +
+                        '                                <td>'+value['tensi_darah']+'</td>\n' +
+                        '                                <td>'+value['suhu_badan']+'</td>\n' +
+                        '                                <td>'+obat+'</td>\n' +
+                        '                                <td>'+tindakan+'</td>\n' +
+                        '                                <td>'+biaya+'</td>\n' +
+                        '                            </tr>')
+                })
+            })
+        }
     </script>
 
 @endsection
