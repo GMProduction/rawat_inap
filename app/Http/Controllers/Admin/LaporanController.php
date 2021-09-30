@@ -27,6 +27,19 @@ class LaporanController extends Controller
         return $data;
     }
 
+    public function getDataTerdaftar()
+    {
+        $start = \request('start');
+        $end   = \request('end');
+        $rawat = new RawatInapController();
+        $data  = $rawat->getData()->where('tanggal_keluar', '==', null);
+        if ($start) {
+            $data = $data->whereBetween('tanggal_masuk', [date('Y-m-d 00:00:00', strtotime($start)), date('Y-m-d 23:59:59', strtotime($end))]);
+        }
+
+        return $data;
+    }
+
     public function index()
     {
         $data = $this->getData();
@@ -36,7 +49,7 @@ class LaporanController extends Controller
 
     public function laporanpasien()
     {
-        $data = $this->getData();
+        $data = $this->getDataTerdaftar();
 
         return view('admin.laporanpasienterdaftar')->with(['data' => $data]);
     }

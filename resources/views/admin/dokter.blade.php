@@ -19,7 +19,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th class="text-center">Nama</th>
+                        <th class="text-center">Nama </th>
                         <th class="text-center">Jenis Kelamin</th>
                         <th class="text-center">Spesialis</th>
                         <th class="text-center">Tarif Per Kunjungan</th>
